@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 interface FAQItem {
@@ -75,6 +75,7 @@ const FAQSection: React.FC = () => {
         },
     ]);
 
+    const navigate = useNavigate();
 
     const toggleFAQ = (id: number) => {
         setFaqs(faqs.map(faq =>
@@ -83,7 +84,6 @@ const FAQSection: React.FC = () => {
                 : { ...faq, isOpen: false }
         ));
     };
-    const navigate = useNavigate();
 
     return (
         <section className="w-full min-h-screen bg-black py-16 px-4 sm:px-6 lg:px-8">
@@ -162,24 +162,26 @@ const FAQSection: React.FC = () => {
                     <p className="text-gray-400 mb-6">
                         Still have questions? We're here to help.
                     </p>
-                    <button onClick={() => navigate("/contact")}
-                    className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105">
+                    <button
+                        onClick={() => navigate("/contact")}
+                        className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105"
+                    >
                         Contact Us
                     </button>
                 </div>
             </div>
 
             {/* Custom Styles */}
-            <style jsx>{`
-        .transition-all {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* Smooth scrolling for accordion */
-        .overflow-hidden {
-          transition: max-height 0.3s ease-in-out;
-        }
-      `}</style>
+            <style>{`
+                .transition-all {
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                /* Smooth scrolling for accordion */
+                .overflow-hidden {
+                    transition: max-height 0.3s ease-in-out;
+                }
+            `}</style>
         </section>
     );
 };

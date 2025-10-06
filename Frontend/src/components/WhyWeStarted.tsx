@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 interface StoryCard {
     id: number;
@@ -31,31 +31,6 @@ const WhyWeStarted: React.FC = () => {
         }
     ];
 
-    // Dark Theme Color Palette
-    const colors = {
-        primary: {
-            400: '#60a5fa',  // Light Blue
-            500: '#3b82f6',  // Blue
-            600: '#2563eb',  // Dark Blue
-        },
-        accent: {
-            400: '#34d399',  // Emerald Green
-            500: '#10b981',  // Green
-        },
-        neutral: {
-            100: '#f3f4f6',
-            200: '#e5e7eb',
-            300: '#d1d5db',
-            400: '#9ca3af',
-            500: '#6b7280',
-            600: '#4b5563',
-            700: '#374151',
-            800: '#1f2937',
-            900: '#111827',
-            950: '#030712',  // Darkest Gray
-        }
-    };
-
     const handleCardClick = (id: number) => {
         setActiveCard(id);
     };
@@ -68,23 +43,21 @@ const WhyWeStarted: React.FC = () => {
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                         Why We Started
                     </h1>
-                    <div
-                        className="w-24 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto rounded-full"
-                    ></div>
+                    <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto rounded-full"></div>
                 </div>
 
                 {/* Main Content Container */}
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
 
-                    {/* Cards Selector - Vertical on left */}
+                    {/* Cards Selector */}
                     <div className="lg:w-2/5 flex lg:flex-col gap-6">
                         {storyCards.map((card, index) => (
                             <button
                                 key={card.id}
                                 onClick={() => handleCardClick(card.id)}
                                 className={`flex-shrink-0 lg:w-full p-6 rounded-2xl border-2 transition-all duration-500 ease-in-out transform hover:scale-102 hover:shadow-2xl ${activeCard === card.id
-                                    ? 'border-blue-500 bg-gradient-to-br from-gray-900 to-black shadow-2xl scale-102'
-                                    : 'border-gray-800 bg-gray-900 hover:border-gray-700'
+                                        ? 'border-blue-500 bg-gradient-to-br from-gray-900 to-black shadow-2xl scale-102'
+                                        : 'border-gray-800 bg-gray-900 hover:border-gray-700'
                                     }`}
                             >
                                 <div className="text-left">
@@ -110,10 +83,9 @@ const WhyWeStarted: React.FC = () => {
                         ))}
                     </div>
 
-                    {/* Active Card Display - Center */}
+                    {/* Active Card Display */}
                     <div className="lg:w-3/5 relative">
                         <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-3xl shadow-2xl p-10 md:p-12 border border-gray-800 min-h-[400px] flex items-center">
-
                             {/* Decorative Elements */}
                             <div className="absolute top-0 left-0 w-full h-2 rounded-t-3xl bg-gradient-to-r from-blue-500 to-emerald-500"></div>
 
@@ -167,8 +139,8 @@ const WhyWeStarted: React.FC = () => {
                                     key={index}
                                     onClick={() => setActiveCard(index)}
                                     className={`w-3 h-3 rounded-full transition-all duration-500 ${activeCard === index
-                                        ? 'scale-125 bg-gradient-to-r from-blue-500 to-emerald-500'
-                                        : 'bg-gray-700 hover:bg-gray-600'
+                                            ? 'scale-125 bg-gradient-to-r from-blue-500 to-emerald-500'
+                                            : 'bg-gray-700 hover:bg-gray-600'
                                         }`}
                                     style={{
                                         width: activeCard === index ? '1.5rem' : '0.75rem'
@@ -195,29 +167,27 @@ const WhyWeStarted: React.FC = () => {
             </div>
 
             {/* Custom Styles */}
-            <style jsx>{`
-        .shadow-2xl {
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-        
-        .hover-scale-102:hover {
-          transform: scale(1.02);
-        }
-        
-        .scale-102 {
-          transform: scale(1.02);
-        }
+            <style>{`
+                .shadow-2xl {
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+                }
 
-        /* Smooth transitions for all interactive elements */
-        button, .transition-all {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+                .hover-scale-102:hover {
+                    transform: scale(1.02);
+                }
 
-        /* Custom glow effect */
-        .glow-effect {
-          box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-      `}</style>
+                .scale-102 {
+                    transform: scale(1.02);
+                }
+
+                button, .transition-all {
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .glow-effect {
+                    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+                }
+            `}</style>
         </section>
     );
 };

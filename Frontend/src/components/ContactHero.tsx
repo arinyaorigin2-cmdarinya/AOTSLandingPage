@@ -1,5 +1,3 @@
-import React from "react";
-
 const ContactHero: React.FC = () => {
     return (
         <div className="w-full flex items-center justify-center bg-black py-16 px-4">
@@ -18,7 +16,7 @@ const ContactHero: React.FC = () => {
                     />
                 </div>
 
-                {/* ✅ Changed glowing light color */}
+                {/* ✅ Glowing light overlay */}
                 <div className="absolute inset-0 overflow-hidden z-0">
                     <div
                         className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] 
@@ -48,7 +46,7 @@ const ContactHero: React.FC = () => {
                 </div>
 
                 {/* Animations */}
-                <style jsx>{`
+                <style>{`
                     @keyframes glow-move {
                         0% {
                             transform: translate(0, 0) rotate(0deg);
@@ -68,8 +66,7 @@ const ContactHero: React.FC = () => {
                     }
 
                     @keyframes float {
-                        0%,
-                        100% {
+                        0%, 100% {
                             transform: translateY(0px) rotate(0deg);
                         }
                         50% {

@@ -2,84 +2,163 @@ import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import emailjs from "emailjs-com";
 
 const ContactSection: React.FC = () => {
-    const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
 
-    return (
-        <div className="w-full bg-black py-20 px-4 flex justify-center">
-            <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Left - Contact Form */}
-                <div className="bg-[#1a1a1a] rounded-2xl p-8 shadow-[0_0_15px_rgba(0,0,0,0.4)]">
-                    <h3 className="text-white text-xl font-semibold mb-6">Send Us a Message</h3>
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-                    <form className="space-y-4">
-                        {/* First & Last Name */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="text"
-                                placeholder="First Name"
-                                className="bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Last Name"
-                                className="bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                        </div>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-                        {/* Email */}
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            className="w-full bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+    const templateParams = {
+      from_name: `${formData.firstName} ${formData.lastName}`,
+      from_email: formData.email,
+      phone: phone,
+      company: formData.company,
+      message: formData.message,
+      to_email: "arinyaorigin2@gmail.com",
+    };
 
-                        {/* Company */}
-                        <input
-                            type="text"
-                            placeholder="Company"
-                            className="w-full bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+    // 1️⃣ Send email to Admin
+    emailjs
+      .send(
+        "service_ffgwer8",
+        "template_vjbz4on",
+        templateParams,
+        "OhhaWXzIEG_GCWVmp"
+      )
+      .then(() => {
+        console.log("Admin notification sent");
+      })
+      .catch((err) => console.error("Admin email error:", err));
 
-                        {/* ✅ Searchable Country Code Dropdown */}
-                        <div className="phone-input-wrapper">
-                            <PhoneInput
-                                country={"in"} // 🇮🇳 Default: India
-                                value={phone}
-                                onChange={(phone) => setPhone(phone)}
-                                enableSearch={true}
-                                searchPlaceholder="Search country..."
-                                inputProps={{
-                                    name: "phone",
-                                    required: true,
-                                    autoFocus: false,
-                                }}
-                                containerClass="w-full"
-                                inputClass="!w-full !bg-[#2a2a2a] !text-white !border-0 !py-3 !pl-12 !rounded-md !focus:ring-2 !focus:ring-blue-500 placeholder-gray-400"
-                                buttonClass="!bg-[#2a2a2a] !border-0 !rounded-l-md"
-                                dropdownClass="!bg-[#2a2a2a] !text-white !border !border-gray-700 !rounded-md"
-                                searchClass="!bg-[#1f1f1f] !text-white !border !border-gray-700 !rounded-md !px-3 !py-2 placeholder-gray-400 focus:!border-blue-500 focus:!ring-1 focus:!ring-blue-500"
-                            />
-                        </div>
+    // 2️⃣ Send confirmation email to User
+    emailjs
+      .send(
+        "service_ffgwer8",
+        "template_bobtq9e",
+        templateParams,
+        "OhhaWXzIEG_GCWVmp"
+      )
+      .then(() => {
+        alert("✅ Message sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          company: "",
+          message: "",
+        });
+        setPhone("");
+      })
+      .catch((err) => {
+        console.error("User email error:", err);
+        alert("❌ Failed to send message. Try again later.");
+      })
+      .finally(() => setLoading(false));
+  };
 
-                        {/* Message */}
-                        <textarea
-                            placeholder="Message"
-                            rows={4}
-                            className="w-full bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+  return (
+    <div className="w-full bg-black py-20 px-4 flex justify-center">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Left - Contact Form */}
+        <div className="bg-[#1a1a1a] rounded-2xl p-8 shadow-[0_0_15px_rgba(0,0,0,0.4)]">
+          <h3 className="text-white text-xl font-semibold mb-6">
+            Send Us a Message
+          </h3>
 
-                        {/* Submit Button */}
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 text-white font-medium py-3 rounded-md"
-                        >
-                            Send <Send size={18} />
-                        </button>
-                    </form>
-                </div>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+                className="bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+                className="bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <input
+              type="text"
+              name="company"
+              placeholder="Company"
+              value={formData.company}
+              onChange={handleChange}
+              className="w-full bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <PhoneInput
+              country={"in"}
+              value={phone}
+              onChange={(phone) => setPhone(phone)}
+              enableSearch={true}
+              searchPlaceholder="Search country..."
+              inputProps={{
+                name: "phone",
+                required: true,
+              }}
+              containerClass="w-full"
+              inputClass="!w-full !bg-[#2a2a2a] !text-white !border-0 !py-3 !pl-12 !rounded-md !focus:ring-2 !focus:ring-blue-500 placeholder-gray-400"
+              buttonClass="!bg-[#2a2a2a] !border-0 !rounded-l-md"
+            />
+
+            <textarea
+              name="message"
+              placeholder="Message"
+              rows={4}
+              value={formData.message}
+              onChange={handleChange}
+              required
+              className="w-full bg-[#2a2a2a] text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 text-white font-medium py-3 rounded-md disabled:opacity-50"
+            >
+              {loading ? "Sending..." : "Send"} <Send size={18} />
+            </button>
+          </form>
+        </div>
+
+        
                 {/* Right - Contact Information */}
                 <div className="flex flex-col space-y-6">
                     {/* Contact Info Box */}

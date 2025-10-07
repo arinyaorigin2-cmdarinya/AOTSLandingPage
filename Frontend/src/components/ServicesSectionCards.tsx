@@ -9,7 +9,9 @@ interface ServiceCard {
     bulletColor: string;
     image?: string;
 }
-
+const handleBookMeeting = () => {
+    window.open("https://forms.gle/ZCrMNodAfu54B7xU9", "_blank");
+  };
 const ServicesSection: React.FC = () => {
     const servicesData: ServiceCard[] = [
         {
@@ -158,7 +160,7 @@ const ServicesSection: React.FC = () => {
     // Book a Call Button (glowing border)
     const GlowButton: React.FC = () => {
         return (
-            <button className="relative rounded-lg p-[2px] overflow-hidden group transition-all duration-300">
+            <button onClick={handleBookMeeting} className="relative rounded-lg p-[2px] overflow-hidden group transition-all duration-300">
                 <div className="absolute inset-0 rounded-lg animate-blue-border 
                     bg-[linear-gradient(270deg,#1e3a8a,#3b82f6,#1e3a8a)] 
                     bg-[length:400%_400%]" />

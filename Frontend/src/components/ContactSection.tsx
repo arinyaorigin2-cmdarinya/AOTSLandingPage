@@ -34,7 +34,7 @@ const ContactSection: React.FC = () => {
       to_email: "arinyaorigin2@gmail.com",
     };
 
-    // 1️⃣ Send email to Admin
+    // Send email to Admin
     emailjs
       .send(
         "service_ffgwer8",
@@ -47,7 +47,7 @@ const ContactSection: React.FC = () => {
       })
       .catch((err) => console.error("Admin email error:", err));
 
-    // 2️⃣ Send confirmation email to User
+    // Send confirmation email to User
     emailjs
       .send(
         "service_ffgwer8",
@@ -71,6 +71,11 @@ const ContactSection: React.FC = () => {
         alert("❌ Failed to send message. Try again later.");
       })
       .finally(() => setLoading(false));
+  };
+
+  // ✅ Function to open Google Form
+  const handleBookMeeting = () => {
+    window.open("https://forms.gle/ZCrMNodAfu54B7xU9", "_blank");
   };
 
   return (
@@ -158,62 +163,67 @@ const ContactSection: React.FC = () => {
           </form>
         </div>
 
-        
-                {/* Right - Contact Information */}
-                <div className="flex flex-col space-y-6">
-                    {/* Contact Info Box */}
-                    <div className="bg-[#1a1a1a] rounded-2xl p-8 space-y-6 shadow-[0_0_15px_rgba(0,0,0,0.4)]">
-                        <h3 className="text-white text-xl font-semibold">Contact Information</h3>
+        {/* Right - Contact Info & Book Meeting */}
+        <div className="flex flex-col space-y-6">
+          {/* Contact Info Box */}
+          <div className="bg-[#1a1a1a] rounded-2xl p-8 space-y-6 shadow-[0_0_15px_rgba(0,0,0,0.4)]">
+            <h3 className="text-white text-xl font-semibold">Contact Information</h3>
 
-                        <div className="space-y-4 text-gray-300">
-                            <div className="flex items-start gap-3">
-                                <Mail className="text-blue-500" size={20} />
-                                <div>
-                                    <p className="font-medium text-white">Email</p>
-                                    <p className="text-gray-400 text-sm">contact@arinyaorigin.com</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-3">
-                                <Phone className="text-blue-500" size={20} />
-                                <div>
-                                    <p className="font-medium text-white">Phone</p>
-                                    <p className="text-gray-400 text-sm">+91-XXXXXXXXXX</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-3">
-                                <MapPin className="text-blue-500" size={20} />
-                                <div>
-                                    <p className="font-medium text-white">Office</p>
-                                    <p className="text-gray-400 text-sm">
-                                        Bangalore, Karnataka <br />
-                                        India
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Book Meeting Box */}
-                    <div className="bg-[#1a1a1a] rounded-2xl p-8 shadow-[0_0_15px_rgba(0,0,0,0.4)]">
-                        <h3 className="text-white text-xl font-semibold mb-3">Contact Information</h3>
-                        <p className="text-gray-300 text-sm mb-5">
-                            Want to discuss your project in detail? Schedule a free 30-minute consultation
-                            with our team of experts at{" "}
-                            <span className="font-semibold text-white">Arinya Origin Technology Solution</span>.
-                            We'll help you understand how our solutions can benefit your business.
-                        </p>
-                        <button
-                            className="w-full bg-blue-600 hover:bg-blue-500 transition-colors text-white font-medium py-3 rounded-md"
-                        >
-                            Book a Meeting
-                        </button>
-                    </div>
+            <div className="space-y-4 text-gray-300">
+              <div className="flex items-start gap-3">
+                <Mail className="text-blue-500" size={20} />
+                <div>
+                  <p className="font-medium text-white">Email</p>
+                  <p className="text-gray-400 text-sm">contact@arinyaorigin.com</p>
                 </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Phone className="text-blue-500" size={20} />
+                <div>
+                  <p className="font-medium text-white">Phone</p>
+                  <p className="text-gray-400 text-sm">+91-XXXXXXXXXX</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin className="text-blue-500" size={20} />
+                <div>
+                  <p className="font-medium text-white">Office</p>
+                  <p className="text-gray-400 text-sm">
+                    Bangalore, Karnataka <br />
+                    India
+                  </p>
+                </div>
+              </div>
             </div>
+          </div>
+
+          {/* Book Meeting Box */}
+          <div className="bg-[#1a1a1a] rounded-2xl p-8 shadow-[0_0_15px_rgba(0,0,0,0.4)]">
+            <h3 className="text-white text-xl font-semibold mb-3">
+              Book a Meeting
+            </h3>
+            <p className="text-gray-300 text-sm mb-5">
+              Want to discuss your project in detail? Schedule a free 30-minute
+              consultation with our experts at{" "}
+              <span className="font-semibold text-white">
+                Arinya Origin Technology Solution
+              </span>
+              . We’ll help you understand how our solutions can benefit your
+              business.
+            </p>
+            <button
+              onClick={handleBookMeeting}
+              className="w-full bg-blue-600 hover:bg-blue-500 transition-colors text-white font-medium py-3 rounded-md"
+            >
+              Book a Meeting
+            </button>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default ContactSection;

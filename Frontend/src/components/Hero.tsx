@@ -8,6 +8,9 @@ const Hero: React.FC = () => {
     const titleWords = ["Empowering", "Businesses", "with", "Software", "Solutions"];
     const typingSpeed = 100;
     const delayBetweenWords = 500;
+    const handleBookMeeting = () => {
+    window.open("https://forms.gle/ZCrMNodAfu54B7xU9", "_blank");
+  };
 
     useEffect(() => {
         if (currentWordIndex < titleWords.length) {
@@ -69,6 +72,7 @@ const Hero: React.FC = () => {
 
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                         <button
+                        onClick={handleBookMeeting}
                             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg text-base lg:text-lg transition duration-300 transform hover:scale-105"
                         >
                             Book a Meeting

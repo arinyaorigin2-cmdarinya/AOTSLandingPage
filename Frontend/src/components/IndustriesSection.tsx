@@ -9,6 +9,9 @@ interface IndustryCard {
     bulletColor: string;
     image?: string;
 }
+const handleBookMeeting = () => {
+    window.open("https://forms.gle/ZCrMNodAfu54B7xU9", "_blank");
+  };
 
 const IndustriesSection: React.FC = () => {
     const industriesData: IndustryCard[] = [
@@ -106,7 +109,7 @@ const IndustriesSection: React.FC = () => {
 
                     {/* Book a Call Button for each card */}
                     <div className="mt-6 pt-4 border-t border-gray-700">
-                        <button className="relative rounded-lg p-[2px] overflow-hidden group transition-all duration-300 w-full">
+                        <button onClick={handleBookMeeting} className="relative rounded-lg p-[2px] overflow-hidden group transition-all duration-300 w-full">
                             <div className="absolute inset-0 rounded-lg animate-blue-border 
                                 bg-[linear-gradient(270deg,#1e3a8a,#3b82f6,#1e3a8a)] 
                                 bg-[length:400%_400%]" />
